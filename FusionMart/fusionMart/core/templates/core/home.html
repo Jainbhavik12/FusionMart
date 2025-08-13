@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FusionMart - Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header>
+        <div class="container header-container">
+            <!-- Logo at far left -->
+            <a href="{% url 'home' %}" class="logo-link-left">
+                <img src="{% static 'images/new-logo.png' %}" alt="FusionMart Logo" class="new-logo-img">
+            </a>
+
+            <!-- Navigation -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Cart</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <!-- Search bar moved here -->
+        <form class="search-bar-amazon hero-search" method="get" action="#">
+            <input type="text" name="q" placeholder="Search FusionMart.in">
+            <button type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+
+        <div class="hero-content">
+            <h2>Welcome to FusionMart</h2>
+            <p>Your one-stop shop for everything you love!</p>
+            <a href="#" class="btn primary-btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-scroll-container">
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="{% static 'images/clothing.jpg' %}" alt="Clothing">
+                    <h3>Clothing</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/electronics.jpg' %}" alt="Electronics">
+                    <h3>Electronics</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/home.jpg' %}" alt="Home & Living">
+                    <h3>Home & Living</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/sports.jpg' %}" alt="Sports">
+                    <h3>Sports</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/beauty.jpg' %}" alt="Beauty">
+                    <h3>Beauty</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/kids-toys.jpg' %}" alt="Kids & Toys">
+                    <h3>Kids & Toys</h3>
+                </div>
+                <div class="category-card">
+                    <img src="{% static 'images/groceries.jpg' %}" alt="Groceries">
+                    <h3>Groceries</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="featured">
+        <h2>Featured Products</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="{% static 'images/sample-product.jpg' %}" alt="Blue Cotton T-Shirt">
+                <h3>Blue Cotton T-Shirt</h3>
+                <p class="price">₹499.99</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/sample-product.jpg' %}" alt="Wireless Headphones">
+                <h3>Wireless Headphones</h3>
+                <p class="price">₹999.00</p>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 FusionMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enable drag scrolling for categories
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollContainer = document.querySelector('.category-scroll-container');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            scrollContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                scrollContainer.style.cursor = 'grabbing';
+                startX = e.pageX - scrollContainer.offsetLeft;
+                scrollLeft = scrollContainer.scrollLeft;
+            });
+
+            scrollContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                scrollContainer.style.cursor = 'grab';
+            });
+
+            scrollContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                scrollContainer.style.cursor = 'grab';
+            });
+
+            scrollContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 2;
+                scrollContainer.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch events for mobile devices
+            scrollContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - scrollContainer.offsetLeft;
+                scrollLeft = scrollContainer.scrollLeft;
+            });
+
+            scrollContainer.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 2;
+                scrollContainer.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+
+</body>
+</html>
